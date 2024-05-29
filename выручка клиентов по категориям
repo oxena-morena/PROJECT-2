@@ -1,0 +1,7 @@
+select sc.category, count(distinct sc.cust_id) cust_cnt, round(sum((price-price*discount)*quantity)) revenue
+from
+sql.store_products p left join  sql.store_carts c on p.product_id=c.product_id
+left join sql.store_delivery d on c.order_id=d.order_id
+join sql.store_customers sc on sc.cust_id=d.cust_id
+group by 1
+order by 3 DESC
